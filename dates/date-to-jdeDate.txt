@@ -1,0 +1,12 @@
+(: Convert an xs:date to JDE julian date e.g. 2016-10-20 -> 116294 :)
+declare function xf:date-to-jdeDate($date as xs:date?) as xs:string?
+{
+   let $year := fn-bea:date-to-string-with-format("yyyy", $date)
+   let $cyy := xs:integer($year) - 1900
+   
+   let $startOfYear := xs:date(fn:concat($year, '-01-01'))
+   let $ddd := fn:days-from-duration($date - $startOfYear) + 1
+   let $ddd_p := fn-bea:pad-left(fn:string($ddd), 3, '0')
+   
+   return fn:concat($cyy, $ddd_p)
+};
