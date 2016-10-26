@@ -1,0 +1,10 @@
+(: Convert a string in JDE julian date to xs:dateTime e.g. 116294 -> 2016-10-20 :)
+declare namespace xf = "http://hayden.id.au";
+declare function xf:jdeDate-to-date($jdeDate as xs:string?) as xs:date?
+{
+	let $jdeYear := fn:substring(fn-bea:trim($jdeDate), 1, 3)
+	let $jdeDays := fn:substring(fn-bea:trim($jdeDate), 4, 6)
+	let $year := 1900 + xs:int($jdeYear)
+	
+	return fn-bea:date-from-string-with-format('yyyyDDD', fn:concat(fn:string($year), $jdeDays))
+};
