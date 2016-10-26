@@ -1,4 +1,5 @@
 (: Convert an xs:date to JDE julian date e.g. 2016-10-20 -> 116294 :)
+declare namespace xf = "http://hayden.id.au";
 declare function xf:date-to-jdeDate($date as xs:date?) as xs:string?
 {
    let $year := fn-bea:date-to-string-with-format("yyyy", $date)
